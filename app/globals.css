@@ -15,7 +15,16 @@
 }
 
 body {
+  @apply overflow-hidden;
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.backgroundContainer {
+  @apply fixed inset-0 w-full h-full z-[-100];
+}
+
+.content {
+  @apply w-screen h-screen relative flex;
 }

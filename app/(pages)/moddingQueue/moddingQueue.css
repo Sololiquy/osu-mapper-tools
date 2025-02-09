@@ -1,0 +1,41 @@
+.content::-webkit-scrollbar {
+  height: 5px;
+}
+.content::-webkit-scrollbar-thumb {
+  @apply rounded-full;
+  background-color: #ffffff;
+}
+.content::-webkit-scrollbar-thumb:hover {
+  background-color: #bdbdbd;
+}
+
+.modContainer {
+  @apply w-[300px] h-full shrink-0 flex flex-col gap-2;
+  background-color: rgba(29, 29, 29, 0.7);
+}
+
+.buttonAddBeatmapWindowVisiblity {
+  @apply w-10 h-10 rounded-full fixed right-5 top-5 text-white;
+  background-color: rgb(60, 90, 255);
+}
+
+/* addBeatmapWindow.tsx */
+
+.addBeatmapWindow {
+  @apply w-[400px] h-[500px] fixed flex-col p-2 pt-10 z-[9999];
+  background-color: rgb(65, 65, 65);
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.buttonCloseBeatmapWindowVisiblity {
+  @apply w-7 h-7 rounded-full absolute right-1 top-1 text-white;
+  background-color: rgb(255, 60, 60);
+}
+
+.buttonAddBeatmap {
+  @apply w-auto h-7 rounded-md text-white;
+  background-color: rgb(60, 90, 255);
+}
