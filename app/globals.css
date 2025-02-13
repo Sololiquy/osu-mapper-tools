@@ -14,6 +14,14 @@
   }
 }
 
+@font-face {
+  font-family: "fontGoodTimes";
+  src: url("/font/good_times_rg.otf") format("opentype");
+}
+.fontGoodTimes {
+  font-family: "fontGoodTimes";
+}
+
 body {
   @apply overflow-hidden;
   color: var(--foreground);

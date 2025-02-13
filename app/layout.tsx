@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import Toolbar from "./component/toolbar/toolbar";
+import TokenWrapper from "./tokenWrapper";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -16,8 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Toolbar />
-        {children}
+        <TokenWrapper>{children}</TokenWrapper>
       </body>
     </html>
   );

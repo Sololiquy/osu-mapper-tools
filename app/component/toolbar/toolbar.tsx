@@ -10,21 +10,21 @@ export default function Toolbar() {
 
   return (
     <div className="toolbarContainer">
-      <nav className="breadcrumbContainer">
-        <ul className="breadcrumbList">
-          <li>
-            <Link href="/">Home</Link>
-          </li>
-          {pathSegments.map((segment, index) => {
-            const href = "/" + pathSegments.slice(0, index + 1).join("/");
-            return (
-              <li key={href}>
-                <Link href={href}>{decodeURIComponent(segment)}</Link>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
+      <Link className="h-10 px-2 bg-[rgb(99,99,99)] flex items-center" href="/">
+        <div>Home</div>
+      </Link>
+      <div className="triangle"></div>
+      {pathSegments.map((segment) => (
+        <div className="h-10 px-2.5 -translate-x-2 relative flex items-center" key={segment}>
+          <Link className="translate-x-3" href={decodeURIComponent(segment)}>
+            {decodeURIComponent(segment)}
+          </Link>
+          <div className="w-full absolute flex flex-col">
+            <div className="parallelogram z-[-1] skew-x-[27deg]"></div>
+            <div className="parallelogram z-[-1] skew-x-[-27deg]"></div>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

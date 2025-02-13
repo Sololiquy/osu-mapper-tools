@@ -1,35 +1,17 @@
 .toolbarContainer {
-  @apply w-96 h-10 absolute left-1 bottom-5 px-2 flex flex-row items-center z-50;
-  background-color: rgb(75, 75, 75);
+  @apply absolute left-1 bottom-5 flex flex-row  z-50;
 }
 
-.breadcrumbContainer {
-  display: flex;
-  gap: 8px;
-  font-size: 14px;
+.triangle {
+  width: 0;
+  height: 0;
+  border-top: 20px solid transparent;
+  border-left: 10px solid rgb(99, 99, 99);
+  border-bottom: 20px solid transparent;
 }
 
-.breadcrumbList {
-  list-style: none;
-  display: flex;
-  gap: 5px;
-  padding: 0;
-}
-
-.breadcrumbList li::after {
-  content: " / ";
-  margin-left: 5px;
-}
-
-.breadcrumbList li:last-child::after {
-  content: "";
-}
-
-.breadcrumbList li a {
-  text-decoration: none;
-  color: rgb(255, 255, 255);
-}
-
-.breadcrumbList li a:hover {
-  text-decoration: underline;
+.parallelogram {
+  @apply w-full h-5;
+  transform: skew(20deg);
+  background: rgb(99, 99, 99);
 }
