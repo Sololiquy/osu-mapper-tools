@@ -26,6 +26,7 @@ export default function BeatmapDetail() {
       }
     }
   };
+  console.log(beatmapData);
 
   return (
     <>

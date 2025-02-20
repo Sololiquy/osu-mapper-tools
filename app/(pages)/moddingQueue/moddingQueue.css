@@ -14,9 +14,8 @@
   background-color: rgba(29, 29, 29, 0.7);
 }
 
-.buttonAddBeatmapWindowVisiblity {
-  @apply w-10 h-10 rounded-full fixed right-5 top-5 text-white;
-  background-color: rgb(60, 90, 255);
+.buttonModdingQueue {
+  @apply w-10 h-10 rounded-full flex text-white items-center justify-center;
 }
 
 /* addBeatmapWindow.tsx */
@@ -31,11 +30,15 @@
 }
 
 .buttonCloseBeatmapWindowVisiblity {
-  @apply w-7 h-7 rounded-full absolute right-1 top-1 text-white;
-  background-color: rgb(255, 60, 60);
+  @apply w-7 h-7 rounded-full absolute right-1 top-1 text-white items-center justify-center;
 }
 
 .buttonAddBeatmap {
   @apply w-auto h-7 rounded-md text-white;
-  background-color: rgb(60, 90, 255);
+}
+
+/* addBeatmapWindow.tsx */
+
+.buttonDeleteBeatmap {
+  @apply w-auto h-5 px-2 rounded-full absolute right-1 top-1 text-white items-center justify-center;
 }

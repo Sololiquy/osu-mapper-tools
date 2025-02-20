@@ -34,5 +34,5 @@ body {
 }
 
 .content {
-  @apply w-screen h-screen relative flex;
+  @apply w-full h-full relative flex;
 }
