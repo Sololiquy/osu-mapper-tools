@@ -41,6 +41,8 @@ export default function AddBeatmapWindow({ addBeatmapWindowVisiblity, setAddBeat
             artist: data.beatmap.artist,
             dataSubmitted,
             status: data.beatmap.status,
+            length: data.beatmap.beatmaps[0].total_length,
+            bpm: data.beatmap.bpm,
           },
         ]);
         alert(`Beatmap ${data.beatmap.artist} - ${data.beatmap.title} added`);

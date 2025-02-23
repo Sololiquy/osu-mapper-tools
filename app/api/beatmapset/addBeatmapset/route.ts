@@ -19,11 +19,7 @@ export async function POST(req: Request) {
     });
 
     const data = await response.json();
-
-    if (!data || !data.title) {
-      return NextResponse.json({ error: "Beatmap not found" }, { status: 404 });
-    }
-
+    ["converts", "pack_tags", "recent_favourites", "related_users", "related_tags", "user"].forEach((key) => delete data[key]);
     await addBeatmapset(beatmapID, data, dataSubmitted);
 
     return NextResponse.json({ success: true, beatmap: data });

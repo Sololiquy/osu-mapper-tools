@@ -10,23 +10,6 @@ export default function ModdingQueue() {
   const [deleteBeatmapWindowVisiblity, setDeleteBeatmapWindowVisiblity] = useState("hidden");
   const [moddingData, setModdingData] = useState<any[]>([]);
 
-  const deleteBeatmap = async (id: number) => {
-    try {
-      const res = await fetch("/api/beatmapset/deleteBeatmapset", {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id }),
-      });
-
-      if (!res.ok) throw new Error("Failed to delete beatmap");
-
-      alert(`Beatmap ${id} deleted`);
-      setModdingData((prev) => prev.filter((b) => b.id !== id));
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   useEffect(() => {
     const fetchModdingData = async () => {
       try {
@@ -41,6 +24,24 @@ export default function ModdingQueue() {
 
     fetchModdingData();
   }, []);
+
+  const deleteBeatmap = async (id: number) => {
+    try {
+      const res = await fetch("/api/beatmapset/deleteBeatmapset", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id }),
+      });
+
+      if (!res.ok) throw new Error("Failed to delete beatmap");
+
+      alert(`Beatmap ${id} deleted`);
+      setDeleteBeatmapWindowVisiblity("hidden");
+      setModdingData((prev) => prev.filter((b) => b.id !== id));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const groupedBeatmaps: Record<string, any[]> = moddingData.reduce((acc, beatmap) => {
     const date = beatmap.dataSubmitted;
@@ -66,7 +67,11 @@ export default function ModdingQueue() {
             ))}
 
             <div className="fixed gap-2 right-5 top-5 flex flex-col items-end">
-              <button className="buttonModdingQueue bg-blue-600" onClick={() => setAddBeatmapWindowVisiblity("flex")}>
+              <button
+                className={`buttonModdingQueue ${deleteBeatmapWindowVisiblity === "flex" ? "bg-gray-400" : "bg-blue-600"}`}
+                onClick={deleteBeatmapWindowVisiblity !== "flex" ? () => setAddBeatmapWindowVisiblity("flex") : undefined}
+                disabled={deleteBeatmapWindowVisiblity === "flex"}
+              >
                 +
               </button>
               <button className="buttonModdingQueue bg-red-600" onClick={() => setDeleteBeatmapWindowVisiblity(deleteBeatmapWindowVisiblity === "flex" ? "hidden" : "flex")}>

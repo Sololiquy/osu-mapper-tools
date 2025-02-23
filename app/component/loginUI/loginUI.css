@@ -1,0 +1,7 @@
+.loginUIContainer {
+  @apply absolute right-1 bottom-5 flex flex-row z-50;
+}
+
+.circle {
+  @apply size-24 rounded-full flex items-center justify-center;
+}

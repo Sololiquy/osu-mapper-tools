@@ -8,6 +8,10 @@ export default function BeatmapCard({ beatmap }: parameterType) {
   const id = beatmap.id;
   const { deleteBeatmapWindowVisiblity, deleteBeatmap } = useContext(contextModdingData);
 
+  const minutes = Math.floor(beatmap.length / 60);
+  const seconds = `0${beatmap.length % 60}`.slice(-2);
+  const time = `${minutes}:${seconds}`;
+
   const headerBeatmapImg = `https://assets.ppy.sh/beatmaps/${beatmap.id}/covers/cover.jpg`;
 
   return (
@@ -16,6 +20,16 @@ export default function BeatmapCard({ beatmap }: parameterType) {
         <button className={`buttonDeleteBeatmap ${deleteBeatmapWindowVisiblity} bg-red-600`} onClick={() => deleteBeatmap(id)}>
           DELETE
         </button>
+        <div className="beatmapInfo py-0.5 bg-gradient-to-r from-gray-700 to-transparent">
+          <div className="flex flex-row gap-1.5 items-center">
+            <img className="size-4" src="/length_icon.svg" alt="" />
+            <span className="text-sm">{time}</span>
+          </div>
+          <div className="flex flex-row gap-1.5 items-center">
+            <img className="size-4" src="/bpm_icon.svg" alt="" />
+            <span className="text-sm">{beatmap.bpm}</span>
+          </div>
+        </div>
         <img className="w-full h-full object-cover" src={headerBeatmapImg} alt="" />
       </div>
       <div>
@@ -27,5 +41,11 @@ export default function BeatmapCard({ beatmap }: parameterType) {
 }
 
 interface parameterType {
-  beatmap: { id: number; title: string; artist: string };
+  beatmap: {
+    length: number;
+    bpm: number;
+    id: number;
+    title: string;
+    artist: string;
+  };
 }

@@ -17,5 +17,5 @@ export default function GroupCard({ date, beatmaps }: parameterType) {
 
 interface parameterType {
   date: string;
-  beatmaps: { id: number; title: string; artist: string; dataSubmitted: string; status: string }[];
+  beatmaps: any[];
 }

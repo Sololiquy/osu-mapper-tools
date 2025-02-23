@@ -1,14 +1,16 @@
 "use client";
 
 import { createContext, ReactNode, useEffect, useState } from "react";
+import { SessionProvider } from "next-auth/react";
 import Toolbar from "./component/toolbar/toolbar";
+import LoginUI from "./component/loginUI/loginUI";
 
 export default function TokenWrapper({ children }: { children: ReactNode }) {
   const [token, setToken] = useState<string | null>(null);
   useEffect(() => {
     const fetchToken = async () => {
       try {
-        const res = await fetch("/api/getToken");
+        const res = await fetch("/api/auth/getToken");
         const data = await res.json();
         setToken(data.accessToken);
       } catch (error) {
@@ -21,6 +23,9 @@ export default function TokenWrapper({ children }: { children: ReactNode }) {
   return (
     <tokenContext.Provider value={token}>
       <Toolbar />
+      {/* <SessionProvider>
+        <LoginUI />
+      </SessionProvider> */}
       {children}
     </tokenContext.Provider>
   );
