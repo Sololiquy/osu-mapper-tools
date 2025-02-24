@@ -41,6 +41,7 @@
 
 .buttonDeleteBeatmap {
   @apply w-auto h-5 px-2 rounded-full absolute right-1 top-1 text-white items-center justify-center;
+  transition: all 0.2s linear;
 }
 
 .beatmapInfo {

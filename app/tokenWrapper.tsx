@@ -23,10 +23,10 @@ export default function TokenWrapper({ children }: { children: ReactNode }) {
   return (
     <tokenContext.Provider value={token}>
       <Toolbar />
-      {/* <SessionProvider>
+      <SessionProvider>
         <LoginUI />
-      </SessionProvider> */}
-      {children}
+        {children}
+      </SessionProvider>
     </tokenContext.Provider>
   );
 }

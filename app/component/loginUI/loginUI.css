@@ -3,5 +3,13 @@
 }
 
 .circle {
-  @apply size-24 rounded-full flex items-center justify-center;
+  @apply size-24 relative rounded-full flex items-center cursor-pointer justify-center overflow-hidden;
+}
+
+.signOut {
+  @apply size-full absolute text-[rgb(0,0,0,0)] bg-[rgb(0,0,0,0)]  flex items-center justify-center;
+  transition: all 0.2s linear;
+}
+.signOut:hover {
+  @apply text-[rgb(256,256,256)] bg-[rgb(0,0,0,0.8)];
 }

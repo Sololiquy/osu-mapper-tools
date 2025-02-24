@@ -6,20 +6,29 @@ import "./loginUI.css";
 
 export default function LoginUI() {
   const { data: session } = useSession();
-  const handleLogin = () => {
-    signIn("osu", { callbackUrl: "/dashboard" }, { redirect: false })
-      .then(() => {
-        window.location.href = "/api/auth/osuAuthentication";
-      })
-      .catch((err) => console.error(err));
+  const handleLogin = async () => {
+    try {
+      const response = await signIn("osu", { callbackUrl: "/" });
+      if (response?.error) {
+        console.error("Login error:", response.error);
+      } else {
+        alert("Login successful");
+      }
+    } catch (err) {
+      console.error("Login failed:", err);
+    }
   };
+  console.log(session);
   return (
     <>
       <div className="loginUIContainer">
         {session ? (
           <div>
-            <div className="circle bg-white text-black" onClick={() => signOut()}>
-              Sign out
+            <div className="circle">
+              <div className="signOut" onClick={() => signOut()}>
+                Sign out
+              </div>
+              <img src={session.user.image} alt="" />
             </div>
           </div>
         ) : (
