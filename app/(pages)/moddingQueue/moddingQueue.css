@@ -47,3 +47,7 @@
 .beatmapInfo {
   @apply absolute flex flex-col left-0 top-1 pl-1 pr-5;
 }
+
+.beatmapStatus {
+  @apply w-auto h-5 px-2 rounded-lg absolute flex right-1 top-1 text-sm font-bold justify-center items-center;
+}
