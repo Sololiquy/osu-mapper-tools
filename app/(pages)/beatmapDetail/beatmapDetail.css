@@ -1,0 +1,3 @@
+.beatmapDetailStatus {
+   @apply w-auto px-4 rounded-full absolute flex right-1 bottom-1 text-2xl font-bold border justify-center items-center;
+}

@@ -19,10 +19,6 @@ export default function LoginUI() {
       }
    };
 
-   const check = (): void => {
-      console.log(session);
-   };
-
    return (
       <>
          <div className="loginUIContainer">
@@ -41,7 +37,7 @@ export default function LoginUI() {
                </div>
             )}
          </div>
-         <button onClick={check}>Check</button>
+         {/* <button onClick={check}>Check</button> */}
       </>
    );
 }

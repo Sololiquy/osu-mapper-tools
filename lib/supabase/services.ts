@@ -1,6 +1,15 @@
 import { supabase } from "./init";
 
+//----------------------------------------------------------------------------
 // GET
+
+export async function getBeatmapset(id: number) {
+   const { data, error } = await supabase.from("dataBeatmap").select("beatmap").eq("id", id).single();
+   if (error) {
+      throw new Error(error.message);
+   }
+   return data.beatmap;
+}
 
 export async function getAllBeatmapset() {
    const { data, error } = await supabase.from("moddingData").select("*");
