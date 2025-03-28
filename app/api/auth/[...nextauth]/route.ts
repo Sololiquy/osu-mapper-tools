@@ -2,6 +2,10 @@ import NextAuth from "next-auth";
 import OsuProvider from "next-auth/providers/osu";
 
 export const authOptions = {
+   session: {
+      strategy: "jwt",
+   },
+   secret: process.env.NEXTAUTH_SECRET,
    providers: [
       OsuProvider({
          clientId: process.env.OSU_CLIENT_ID!,

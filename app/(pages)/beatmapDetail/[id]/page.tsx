@@ -46,7 +46,7 @@ export default function BeatmapDetail() {
          <div className="content justify-center items-center">
             <div className="max-w-[1000px] flex flex-col gap-1 p-1 bg-[rgba(0,0,0,0.3)]">
                <div className="w-full relative">
-                  <DifficultyTab beatmaps={beatmapData.beatmaps} difficultySelectedHandler={difficultySelectedHandler} />
+                  <DifficultyTab beatmaps={beatmapData.beatmaps} difficultySelected={difficultySelected} difficultySelectedHandler={difficultySelectedHandler} />
                   <div className="beatmapDetailStatus bg-[rgba(0,0,0,0.4)]">{beatmapData.status.toUpperCase()}</div>
                   <img className="w-full object-cover" src={coverImgURL} alt="" />
                </div>
