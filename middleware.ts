@@ -4,7 +4,11 @@ import { getToken } from "next-auth/jwt";
 
 export async function middleware(request: NextRequest) {
    const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
+   console.log("Token=", token);
    if (!token) {
+      return NextResponse.redirect(new URL("/login", request.url));
+   }
+   if (token.id !== process.env.NEXT_PUBLIC_HOST_OSU_ID) {
       return NextResponse.redirect(new URL("/login", request.url));
    }
 }

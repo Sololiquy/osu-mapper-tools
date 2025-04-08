@@ -20,6 +20,9 @@
 # production
 /build
 
+# env files (can opt-in for commiting if needed)
+.env*
+
 # misc
 .DS_Store
 *.pem

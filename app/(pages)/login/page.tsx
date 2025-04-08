@@ -34,10 +34,14 @@ export default function Login() {
 
    return (
       <>
-         <div>Login</div>
-         <button className="bg-blue-600" onClick={handleLogin}>
-            Authenticate
-         </button>
+         <div className="h-screen w-screen">
+            <div className="content flex flex-col justify-center items-center">
+               <div>Login with osu account to continue</div>
+               <button className="bg-blue-600 px-2 rounded" onClick={handleLogin}>
+                  Authenticate
+               </button>
+            </div>
+         </div>
       </>
    );
 }
