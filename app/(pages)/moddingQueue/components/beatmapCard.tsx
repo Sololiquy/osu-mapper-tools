@@ -3,7 +3,7 @@
 import "../moddingQueue.css";
 import React, { useContext } from "react";
 import Link from "next/link";
-import { contextModdingData } from "../page";
+import { contextModdingData } from "../context";
 
 export default function BeatmapCard({ beatmap }: parameterType) {
    const id = beatmap.id;

@@ -10,6 +10,9 @@ export default function Home() {
                   <Link href="/moddingQueue" className="hover:underline">
                      Modding Queue
                   </Link>
+                  <Link href="/beatmapRequest" className="hover:underline">
+                     Beatmap Request
+                  </Link>
                   <Link href="/beatmapDetail" className="text-gray-600 hover:underline">
                      Beatmap Detail
                   </Link>

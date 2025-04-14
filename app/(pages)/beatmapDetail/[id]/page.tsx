@@ -35,7 +35,6 @@ export default function BeatmapDetail() {
    };
 
    if (!beatmapData) return null;
-   beatmapData;
    const coverImgURL = `https://assets.ppy.sh/beatmaps/${id}/covers/cover@2x.jpg?1741480999`;
 
    return (

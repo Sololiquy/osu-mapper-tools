@@ -1,9 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect } from "react";
+
 import GroupCard from "./components/groupCard";
 import AddBeatmapWindow from "./components/addBeatmapWindow";
+
 import "./moddingQueue.css";
+import { contextModdingData } from "./context";
 
 export default function ModdingQueue() {
    const [addBeatmapWindowVisiblity, setAddBeatmapWindowVisiblity] = useState("hidden");
@@ -88,5 +91,3 @@ export default function ModdingQueue() {
       </>
    );
 }
-
-export const contextModdingData = createContext<any>({});

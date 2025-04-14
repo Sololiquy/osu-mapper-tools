@@ -2,7 +2,7 @@
 
 import React, { Dispatch, FormEvent, SetStateAction, useContext } from "react";
 import { tokenContext } from "@/app/tokenWrapper";
-import { contextModdingData } from "../page";
+import { contextModdingData } from "../context";
 
 import "../moddingQueue.css";
 

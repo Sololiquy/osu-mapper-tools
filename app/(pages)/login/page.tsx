@@ -5,11 +5,11 @@ import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function Login() {
-   const { data: session } = useSession();
+   const { data: session, status } = useSession();
    const router = useRouter();
 
    useEffect(() => {
-      if (session?.user?.id) {
+      if (status === "authenticated" && session?.user?.id) {
          const userId = String(session.user.id);
          if (userId === process.env.NEXT_PUBLIC_HOST_OSU_ID) {
             router.push("/home");
@@ -17,7 +17,7 @@ export default function Login() {
             router.push("/login");
          }
       }
-   }, [session, router]);
+   }, [session, status, router]);
 
    const handleLogin = async () => {
       try {
@@ -33,15 +33,13 @@ export default function Login() {
    };
 
    return (
-      <>
-         <div className="h-screen w-screen">
-            <div className="content flex flex-col justify-center items-center">
-               <div>Login with osu account to continue</div>
-               <button className="bg-blue-600 px-2 rounded" onClick={handleLogin}>
-                  Authenticate
-               </button>
-            </div>
+      <div className="h-screen w-screen flex items-center justify-center">
+         <div className="flex flex-col items-center gap-4">
+            <div>Login with osu account to continue</div>
+            <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" onClick={handleLogin}>
+               Authenticate
+            </button>
          </div>
-      </>
+      </div>
    );
 }
