@@ -1,17 +1,17 @@
 .toolbarContainer {
-  @apply absolute left-1 bottom-5 flex flex-row  z-50;
+   @apply absolute left-1 bottom-5 flex flex-row  z-50;
 }
 
 .triangle {
-  width: 0;
-  height: 0;
-  border-top: 20px solid transparent;
-  border-left: 10px solid rgb(99, 99, 99);
-  border-bottom: 20px solid transparent;
+   width: 0;
+   height: 0;
+   border-top: 20px solid transparent;
+   border-left: 10px solid rgb(99, 99, 99);
+   border-bottom: 20px solid transparent;
 }
 
 .parallelogram {
-  @apply w-full h-5;
-  transform: skew(20deg);
-  background: rgb(99, 99, 99);
+   @apply w-full h-5;
+   transform: skew(20deg);
+   background: rgb(99, 99, 99);
 }

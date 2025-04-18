@@ -7,12 +7,12 @@ export async function middleware(request: NextRequest) {
    const path = request.nextUrl.pathname;
 
    const hostID = String(process.env.NEXT_PUBLIC_HOST_OSU_ID);
-
    const logID = String(token?.id);
+
    const pathHost = ["/moddingQueue", "/beatmapDetail", "/home"];
    const pathNonHost = ["/beatmapRequest", "/beatmapDetail", "/home"];
 
-   console.log("token.id:", logID, typeof logID);
+   console.log("tokenId:", logID, typeof logID);
    console.log("hostId:", hostID, typeof hostID);
 
    if (!token) {

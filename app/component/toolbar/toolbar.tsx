@@ -33,7 +33,7 @@ export default function Toolbar() {
                      </Link>
                      <div className="w-full absolute flex flex-col">
                         <div className="parallelogram z-[-1] skew-x-[27deg]"></div>
-                        <div className="parallelogram z-[-1] skew-x-[-27deg]"></div>
+                        <div className="parallelogram z-[-1] !skew-x-[-27deg]"></div>
                      </div>
                      {index < pathSegments.length - 0 && <div className="triangle"></div>}
                   </div>
