@@ -11,46 +11,58 @@ export async function getBeatmapset(id: number) {
    return data.beatmap;
 }
 
-export async function getAllBeatmapset() {
-   const { data, error } = await supabase.from("moddingData").select("*");
-   if (error) {
-      throw new Error(error.message);
+export async function getAllBeatmapset(loginID: number) {
+   const hostID = Number(process.env.NEXT_PUBLIC_HOST_OSU_ID);
+   if (loginID === hostID) {
+      const { data, error } = await supabase.from("moddingData").select("*");
+      if (error) {
+         throw new Error(error.message);
+      }
+      return data;
+   } else if (loginID !== hostID) {
+      const { data, error } = await supabase.rpc("getAllBeatmapset", {
+         userid: loginID,
+      });
+      if (error) {
+         throw new Error(error.message);
+      }
+      return data;
    }
-   return data;
 }
 
 //----------------------------------------------------------------------------
 // POST
 
-export async function addBeatmapset(beatmapID: number, data: any, dataSubmitted: string) {
-   const { error: errorA } = await supabase.from("dataBeatmap").insert({ id: beatmapID, beatmap: data });
-   const { error: errorB } = await supabase.from("moddingData").insert({
+export async function addBeatmapset(beatmapID: number, data: any, dataSubmitted: string, username: string, userID: number) {
+   const { error } = await supabase.rpc("addbeatmapset", {
       id: beatmapID,
+      beatmapdata: JSON.stringify(data),
       title: data.title,
       artist: data.artist,
-      dataSubmitted: dataSubmitted,
+      datasubmitted: dataSubmitted,
       length: data.beatmaps[0].total_length,
       bpm: data.bpm,
       status: data.status,
+      host: data.creator,
+      username: username,
+      userid: userID,
    });
 
-   if (errorA || errorB) {
-      throw new Error(errorA?.message || errorB?.message);
+   if (error) {
+      throw new Error(error.message);
    }
 }
 
 //----------------------------------------------------------------------------
 // DELETE
 
-export async function deleteBeatmapset(id: number) {
-   const { data: dataA, error: errorA } = await supabase.from("moddingData").delete().eq("id", id).select();
-   const { data: dataB, error: errorB } = await supabase.from("dataBeatmap").delete().eq("id", id).select();
-
-   if ((!dataA || dataA.length === 0) && (!dataB || dataB.length === 0)) {
-      throw new Error("Permission denied: RLS blocked delete");
-   }
-
-   if (errorA || errorB) {
-      throw new Error(errorA?.message || errorB?.message || "Unknown delete error");
+export async function deleteBeatmapset(id: number, userID: number) {
+   console.log("deleteBeatmapset", id, userID);
+   const { error } = await supabase.rpc("deleteBeatmapset", {
+      o_beatmapid: id,
+      o_userid: userID,
+   });
+   if (error) {
+      throw new Error(error.message);
    }
 }

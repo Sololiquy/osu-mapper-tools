@@ -3,7 +3,7 @@ import { addBeatmapset } from "@/lib/supabase/services";
 
 export async function POST(req: Request) {
    try {
-      const { token, beatmapID, dataSubmitted } = await req.json();
+      const { token, beatmapID, dataSubmitted, username, userID } = await req.json();
 
       if (!token) {
          return NextResponse.json({ error: "Missing access token" }, { status: 401 });
@@ -24,7 +24,7 @@ export async function POST(req: Request) {
 
       const data = await response.json();
       ["converts", "pack_tags", "recent_favourites", "related_users", "related_tags", "user"].forEach((key) => delete data[key]);
-      await addBeatmapset(beatmapID, data, dataSubmitted);
+      await addBeatmapset(beatmapID, data, dataSubmitted, username, userID);
 
       return NextResponse.json({ success: true, beatmap: data });
    } catch (error) {

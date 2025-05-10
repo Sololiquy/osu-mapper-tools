@@ -13,9 +13,9 @@ export default function Home() {
                   <Link href="/beatmapRequest" className="hover:underline">
                      Beatmap Request
                   </Link>
-                  <Link href="/beatmapDetail" className="text-gray-600 hover:underline">
+                  {/* <Link href="/beatmapDetail" className="text-gray-600 hover:underline">
                      Beatmap Detail
-                  </Link>
+                  </Link> */}
                </div>
             </div>
          </div>

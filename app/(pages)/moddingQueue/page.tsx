@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 
 import GroupCard from "./components/groupCard";
 import AddBeatmapWindow from "./components/addBeatmapWindow";
@@ -9,9 +10,10 @@ import "./moddingQueue.css";
 import { contextModdingData } from "./context";
 
 export default function ModdingQueue() {
-   const [addBeatmapWindowVisiblity, setAddBeatmapWindowVisiblity] = useState("hidden");
+   const { data: session } = useSession();
+   const [addBeatmapWindowVisiblity, setAddBeatmapWindowVisiblity] = useState(false);
    const [deleteBeatmapWindowVisiblity, setDeleteBeatmapWindowVisiblity] = useState("hidden");
-   const [moddingData, setModdingData] = useState<any[]>([]);
+   const [beatmapData, setBeatmapData] = useState<any[]>([]);
 
    useEffect(() => {
       const fetchModdingData = async () => {
@@ -19,7 +21,7 @@ export default function ModdingQueue() {
             const res = await fetch("/api/beatmapset/getAllBeatmapset");
             const data = await res.json();
             if (!res.ok) throw new Error(data.error);
-            setModdingData(data);
+            setBeatmapData(data);
          } catch (error) {
             console.error(error);
          }
@@ -29,11 +31,12 @@ export default function ModdingQueue() {
    }, []);
 
    const deleteBeatmap = async (id: number) => {
+      const userID = session?.user?.id;
       try {
          const res = await fetch("/api/beatmapset/deleteBeatmapset", {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id }),
+            body: JSON.stringify({ id, userID }),
          });
 
          const data = await res.json();
@@ -44,13 +47,13 @@ export default function ModdingQueue() {
 
          alert(`Beatmap ${id} deleted`);
          setDeleteBeatmapWindowVisiblity("hidden");
-         setModdingData((prev) => prev.filter((b) => b.id !== id));
+         setBeatmapData((prev) => prev.filter((b) => b.id !== id));
       } catch (error) {
          alert(error);
       }
    };
 
-   const groupedBeatmaps: Record<string, any[]> = moddingData.reduce((acc, beatmap) => {
+   const groupedBeatmaps: Record<string, any[]> = beatmapData.reduce((acc, beatmap) => {
       const date = beatmap.dataSubmitted;
       if (!acc[date]) acc[date] = [];
       acc[date].push(beatmap);
@@ -66,18 +69,17 @@ export default function ModdingQueue() {
          </div>
          <div className="w-screen h-screen">
             <div className="content flex-row gap-2 pl-3 pr-24 overflow-x-scroll overflow-y-hidden">
-               <contextModdingData.Provider value={{ moddingData, setModdingData, deleteBeatmapWindowVisiblity, deleteBeatmap }}>
-                  <AddBeatmapWindow addBeatmapWindowVisiblity={addBeatmapWindowVisiblity} setAddBeatmapWindowVisiblity={setAddBeatmapWindowVisiblity} />
-
+               <contextModdingData.Provider value={{ beatmapData, setBeatmapData, deleteBeatmapWindowVisiblity, deleteBeatmap }}>
                   {sortedDates.map((date) => (
                      <GroupCard key={date} date={date} beatmaps={groupedBeatmaps[date]} />
                   ))}
 
+                  {addBeatmapWindowVisiblity && <AddBeatmapWindow setAddBeatmapWindowVisiblity={setAddBeatmapWindowVisiblity} />}
+
                   <div className="fixed gap-2 right-5 top-5 flex flex-col items-end">
                      <button
-                        className={`buttonModdingQueue ${deleteBeatmapWindowVisiblity === "flex" ? "bg-gray-400" : "bg-blue-600"}`}
-                        onClick={deleteBeatmapWindowVisiblity !== "flex" ? () => setAddBeatmapWindowVisiblity("flex") : undefined}
-                        disabled={deleteBeatmapWindowVisiblity === "flex"}
+                        className={`buttonCircled ${deleteBeatmapWindowVisiblity === "flex" ? "bg-gray-400" : "bg-blue-600"}`}
+                        onClick={deleteBeatmapWindowVisiblity !== "flex" ? () => setAddBeatmapWindowVisiblity(true) : undefined}
                      >
                         +
                      </button>

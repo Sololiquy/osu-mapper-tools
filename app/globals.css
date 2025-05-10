@@ -3,36 +3,40 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+   --background: #ffffff;
+   --foreground: #171717;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+   :root {
+      --background: #0a0a0a;
+      --foreground: #ededed;
+   }
 }
 
 @font-face {
-  font-family: "fontGoodTimes";
-  src: url("/font/good_times_rg.otf") format("opentype");
+   font-family: "fontGoodTimes";
+   src: url("/font/good_times_rg.otf") format("opentype");
 }
 .fontGoodTimes {
-  font-family: "fontGoodTimes";
+   font-family: "fontGoodTimes";
 }
 
 body {
-  @apply overflow-hidden;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+   @apply overflow-hidden;
+   color: var(--foreground);
+   background: var(--background);
+   font-family: Arial, Helvetica, sans-serif;
 }
 
 .backgroundContainer {
-  @apply fixed inset-0 w-full h-full z-[-100];
+   @apply fixed inset-0 w-full h-full z-[-100];
 }
 
 .content {
-  @apply w-full h-full relative flex;
+   @apply w-full h-full relative flex;
+}
+
+.buttonCircled {
+   @apply w-10 h-10 rounded-full flex text-white items-center justify-center;
 }

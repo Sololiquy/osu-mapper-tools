@@ -1,0 +1,27 @@
+/* addBeatmapWindow.tsx */
+.addBeatmapWindow {
+   @apply w-[400px] h-[500px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 fixed flex-col p-2 pt-10 z-[9999] bg-[rgb(65,65,65)];
+}
+
+.buttonCloseBeatmapWindowVisiblity {
+   @apply w-7 h-7 rounded-full absolute right-1 top-1 text-white items-center justify-center;
+}
+
+.buttonAddBeatmap {
+   @apply w-auto h-7 rounded-md text-white;
+}
+
+/* beatmapCard.tsx */
+
+.buttonDeleteBeatmap {
+   @apply w-auto h-5 px-2 rounded-full absolute right-1 bottom-1 text-white items-center justify-center;
+   transition: all 0.2s linear;
+}
+
+.beatmapInfo {
+   @apply absolute flex flex-col left-0 top-1 pl-1 pr-5;
+}
+
+.beatmapStatus {
+   @apply w-auto h-5 px-2 rounded-lg absolute flex right-1 top-1 text-sm font-bold justify-center items-center;
+}
