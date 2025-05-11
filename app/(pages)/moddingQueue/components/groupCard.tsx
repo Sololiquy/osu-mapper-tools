@@ -10,7 +10,7 @@ export default function GroupCard({ date, beatmaps }: parameterType) {
       <div className="modContainer">
          <div className="text-lg font-bold">{date}</div>
          {beatmaps.map((beatmap) => (
-            <BeatmapCard key={beatmap.id} beatmap={beatmap} />
+            <BeatmapCard key={beatmap.beatmapid} beatmap={beatmap} />
          ))}
       </div>
    );

@@ -20,8 +20,8 @@ export async function getAllBeatmapset(loginID: number) {
       }
       return data;
    } else if (loginID !== hostID) {
-      const { data, error } = await supabase.rpc("getAllBeatmapset", {
-         userid: loginID,
+      const { data, error } = await supabase.rpc("getall_beatmapset", {
+         o_userid: loginID,
       });
       if (error) {
          throw new Error(error.message);
@@ -34,18 +34,18 @@ export async function getAllBeatmapset(loginID: number) {
 // POST
 
 export async function addBeatmapset(beatmapID: number, data: any, dataSubmitted: string, username: string, userID: number) {
-   const { error } = await supabase.rpc("addbeatmapset", {
-      id: beatmapID,
-      beatmapdata: JSON.stringify(data),
-      title: data.title,
-      artist: data.artist,
-      datasubmitted: dataSubmitted,
-      length: data.beatmaps[0].total_length,
-      bpm: data.bpm,
-      status: data.status,
-      host: data.creator,
-      username: username,
-      userid: userID,
+   const { error } = await supabase.rpc("add_beatmapset", {
+      o_beatmapid: beatmapID,
+      o_beatmapjson: JSON.stringify(data),
+      o_title: data.title,
+      o_artist: data.artist,
+      o_submitdate: dataSubmitted,
+      o_length: data.beatmaps[0].total_length,
+      o_bpm: data.bpm,
+      o_status: data.status,
+      o_host: data.creator,
+      o_username: username,
+      o_userid: userID,
    });
 
    if (error) {
@@ -56,10 +56,10 @@ export async function addBeatmapset(beatmapID: number, data: any, dataSubmitted:
 //----------------------------------------------------------------------------
 // DELETE
 
-export async function deleteBeatmapset(id: number, userID: number) {
-   console.log("deleteBeatmapset", id, userID);
-   const { error } = await supabase.rpc("deleteBeatmapset", {
-      o_beatmapid: id,
+export async function deleteBeatmapset(beatmapID: number, userID: number) {
+   console.log("deleteBeatmapset", beatmapID, userID);
+   const { error } = await supabase.rpc("delete_beatmapset", {
+      o_beatmapid: beatmapID,
       o_userid: userID,
    });
    if (error) {

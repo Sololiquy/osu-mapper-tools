@@ -47,7 +47,7 @@ export default function AddBeatmapWindow({ setAddBeatmapWindowVisiblity }: param
             setBeatmapData([
                ...beatmapData,
                {
-                  id: Number(beatmapID),
+                  id: data.beatmap.id,
                   title: data.beatmap.title,
                   artist: data.beatmap.artist,
                   dataSubmitted,

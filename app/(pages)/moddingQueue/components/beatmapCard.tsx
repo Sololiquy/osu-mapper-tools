@@ -5,8 +5,18 @@ import React, { useContext } from "react";
 import Link from "next/link";
 import { contextModdingData } from "../context";
 
+interface parameterType {
+   beatmap: {
+      length: number;
+      bpm: number;
+      beatmapid: number;
+      title: string;
+      artist: string;
+      status: string;
+   };
+}
+
 export default function BeatmapCard({ beatmap }: parameterType) {
-   const id = beatmap.id;
    const { deleteBeatmapWindowVisiblity, deleteBeatmap } = useContext(contextModdingData);
 
    const time = `${Math.floor(beatmap.length / 60)}:${`0${beatmap.length % 60}`.slice(-2)}`;
@@ -18,12 +28,12 @@ export default function BeatmapCard({ beatmap }: parameterType) {
          loved: "bg-pink-600",
       }[beatmap.status] || "bg-gray-600";
 
-   const headerBeatmapImg = `https://assets.ppy.sh/beatmaps/${beatmap.id}/covers/cover.jpg`;
+   const headerBeatmapImg = `https://assets.ppy.sh/beatmaps/${beatmap.beatmapid}/covers/cover.jpg`;
 
    return (
       <div className="bg-[rgb(50,50,50)]">
          <div className="w-full h-[100px] relative">
-            <button className={`buttonDeleteBeatmap ${deleteBeatmapWindowVisiblity} bg-red-600`} onClick={() => deleteBeatmap(id)}>
+            <button className={`buttonDeleteBeatmap ${deleteBeatmapWindowVisiblity} bg-red-600`} onClick={() => deleteBeatmap(beatmap.beatmapid)}>
                DELETE
             </button>
             <div className="beatmapInfo py-0.5 bg-gradient-to-r from-gray-900 to-transparent">
@@ -37,7 +47,7 @@ export default function BeatmapCard({ beatmap }: parameterType) {
                </div>
             </div>
             <div className={`beatmapStatus ${bgStatusColor}`}>{beatmap.status.toUpperCase()}</div>
-            <Link href={`/beatmapDetail/${beatmap.id}`}>
+            <Link href={`/beatmapDetail/${beatmap.beatmapid}`}>
                <img className="w-full h-full object-cover" src={headerBeatmapImg} alt="" />
             </Link>
          </div>
@@ -47,15 +57,4 @@ export default function BeatmapCard({ beatmap }: parameterType) {
          </div>
       </div>
    );
-}
-
-interface parameterType {
-   beatmap: {
-      length: number;
-      bpm: number;
-      id: number;
-      title: string;
-      artist: string;
-      status: string;
-   };
 }

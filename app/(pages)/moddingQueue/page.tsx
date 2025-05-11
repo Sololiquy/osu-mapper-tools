@@ -30,13 +30,13 @@ export default function ModdingQueue() {
       fetchModdingData();
    }, []);
 
-   const deleteBeatmap = async (id: number) => {
+   const deleteBeatmap = async (beatmapID: number) => {
       const userID = session?.user?.id;
       try {
          const res = await fetch("/api/beatmapset/deleteBeatmapset", {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id, userID }),
+            body: JSON.stringify({ beatmapID, userID }),
          });
 
          const data = await res.json();
@@ -45,9 +45,9 @@ export default function ModdingQueue() {
             throw new Error(data.error || "Failed to delete beatmap");
          }
 
-         alert(`Beatmap ${id} deleted`);
+         alert(`Beatmap ${beatmapID} deleted`);
          setDeleteBeatmapWindowVisiblity("hidden");
-         setBeatmapData((prev) => prev.filter((b) => b.id !== id));
+         setBeatmapData((prev) => prev.filter((b) => b.beatmapid !== beatmapID));
       } catch (error) {
          alert(error);
       }

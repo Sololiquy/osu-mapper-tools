@@ -3,11 +3,11 @@ import { deleteBeatmapset } from "@/lib/supabase/services";
 
 export async function DELETE(req: NextRequest) {
    try {
-      const { id, userID } = await req.json();
-      if (!id) {
+      const { beatmapID, userID } = await req.json();
+      if (!beatmapID) {
          return NextResponse.json({ error: "Beatmap ID is required" }, { status: 400 });
       }
-      await deleteBeatmapset(id, userID);
+      await deleteBeatmapset(beatmapID, userID);
       return NextResponse.json({ message: "Beatmap deleted successfully" }, { status: 200 });
    } catch (error: any) {
       return NextResponse.json({ error: error.message }, { status: 403 });

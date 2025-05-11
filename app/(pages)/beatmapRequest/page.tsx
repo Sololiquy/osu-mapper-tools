@@ -32,13 +32,13 @@ export default function BeatmapRequest() {
       fetchModdingData();
    }, []);
 
-   const deleteBeatmap = async (id: number) => {
+   const deleteBeatmap = async (beatmapID: number) => {
       const userID = session?.user?.id;
       try {
          const res = await fetch("/api/beatmapset/deleteBeatmapset", {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id, userID }),
+            body: JSON.stringify({ beatmapID, userID }),
          });
 
          const data = await res.json();
@@ -47,9 +47,9 @@ export default function BeatmapRequest() {
             throw new Error(data.error || "Failed to delete beatmap");
          }
 
-         alert(`Beatmap ${id} deleted`);
+         alert(`Beatmap ${beatmapID} deleted`);
          setDeleteBeatmapWindowVisiblity("hidden");
-         setBeatmapData((prev) => prev.filter((b) => b.id !== id));
+         setBeatmapData((prev) => prev.filter((b) => b.id !== beatmapID));
       } catch (error) {
          alert(error);
       }
@@ -64,7 +64,7 @@ export default function BeatmapRequest() {
             <contextModdingData.Provider value={{ beatmapData, setBeatmapData, deleteBeatmapWindowVisiblity, deleteBeatmap }}>
                <div className="flex flex-row flex-wrap gap-2">
                   {beatmapData.map((beatmap) => (
-                     <BeatmapCard key={beatmap.id} beatmap={beatmap} />
+                     <BeatmapCard key={beatmap.beatmapid} beatmap={beatmap} />
                   ))}
                </div>
 
