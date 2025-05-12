@@ -54,7 +54,7 @@ export default function ModdingQueue() {
    };
 
    const groupedBeatmaps: Record<string, any[]> = beatmapData.reduce((acc, beatmap) => {
-      const date = beatmap.dataSubmitted;
+      const date = beatmap.submitdate.slice(0, 10);
       if (!acc[date]) acc[date] = [];
       acc[date].push(beatmap);
       return acc;

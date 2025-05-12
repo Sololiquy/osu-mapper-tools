@@ -13,21 +13,14 @@ export async function getBeatmapset(id: number) {
 
 export async function getAllBeatmapset(loginID: number) {
    const hostID = Number(process.env.NEXT_PUBLIC_HOST_OSU_ID);
-   if (loginID === hostID) {
-      const { data, error } = await supabase.from("moddingData").select("*");
-      if (error) {
-         throw new Error(error.message);
-      }
-      return data;
-   } else if (loginID !== hostID) {
-      const { data, error } = await supabase.rpc("getall_beatmapset", {
-         o_userid: loginID,
-      });
-      if (error) {
-         throw new Error(error.message);
-      }
-      return data;
+   const { data, error } = await supabase.rpc("getall_beatmapset", {
+      o_userid: loginID,
+      o_hostid: hostID,
+   });
+   if (error) {
+      throw new Error(error.message);
    }
+   return data;
 }
 
 //----------------------------------------------------------------------------
