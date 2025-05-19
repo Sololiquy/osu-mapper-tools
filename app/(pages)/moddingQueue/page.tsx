@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import GroupCard from "./components/groupCard";
 import AddBeatmapWindow from "./components/addBeatmapWindow";
 
-import "./moddingQueue.css";
+import style from "./moddingQueue.module.css";
 import { contextModdingData } from "./context";
 
 export default function ModdingQueue() {
@@ -64,11 +64,11 @@ export default function ModdingQueue() {
 
    return (
       <>
-         <div className="backgroundContainer">
-            <img className="w-full h-full object-cover blur-md scale-125" src="/osu background.jpg" alt="Background" />
+         <div className={`backgroundContainer`}>
+            <img className={`w-full h-full object-cover blur-md scale-125`} src="/osu background.jpg" alt="Background" />
          </div>
-         <div className="w-screen h-screen">
-            <div className="content flex-row gap-2 pl-3 pr-24 overflow-x-scroll overflow-y-hidden">
+         <div className={`fullScreen`}>
+            <div className={`${style.content} flex-row gap-2 pl-3 pr-24 overflow-x-scroll overflow-y-hidden`}>
                <contextModdingData.Provider value={{ beatmapData, setBeatmapData, deleteBeatmapWindowVisiblity, deleteBeatmap }}>
                   {sortedDates.map((date) => (
                      <GroupCard key={date} date={date} beatmaps={groupedBeatmaps[date]} />
@@ -76,14 +76,14 @@ export default function ModdingQueue() {
 
                   {addBeatmapWindowVisiblity && <AddBeatmapWindow setAddBeatmapWindowVisiblity={setAddBeatmapWindowVisiblity} />}
 
-                  <div className="fixed gap-2 right-5 top-5 flex flex-col items-end">
+                  <div className={`fixed gap-2 right-5 top-5 flex flex-col items-end`}>
                      <button
                         className={`buttonCircled ${deleteBeatmapWindowVisiblity === "flex" ? "bg-gray-400" : "bg-blue-600"}`}
                         onClick={deleteBeatmapWindowVisiblity !== "flex" ? () => setAddBeatmapWindowVisiblity(true) : undefined}
                      >
                         +
                      </button>
-                     <button className="buttonModdingQueue bg-red-600" onClick={() => setDeleteBeatmapWindowVisiblity(deleteBeatmapWindowVisiblity === "flex" ? "hidden" : "flex")}>
+                     <button className={`buttonCircled bg-red-600`} onClick={() => setDeleteBeatmapWindowVisiblity(deleteBeatmapWindowVisiblity === "flex" ? "hidden" : "flex")}>
                         <img src="/icon_delete.svg" alt="" />
                      </button>
                   </div>

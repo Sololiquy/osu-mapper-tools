@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import { tokenContext } from "@/app/tokenWrapper";
 import { contextModdingData } from "../context";
 
-import "../moddingQueue.css";
+import style from "../moddingQueue.module.css";
 
 interface parameterType {
    setAddBeatmapWindowVisiblity: Dispatch<SetStateAction<boolean>>;
@@ -46,10 +46,10 @@ export default function AddBeatmapWindow({ setAddBeatmapWindowVisiblity }: param
             setBeatmapData([
                ...beatmapData,
                {
-                  id: Number(beatmapID),
+                  beatmapid: Number(beatmapID),
                   title: data.beatmap.title,
                   artist: data.beatmap.artist,
-                  dataSubmitted,
+                  submitdate: dataSubmitted,
                   status: data.beatmap.status,
                   length: data.beatmap.beatmaps[0].total_length,
                   bpm: data.beatmap.bpm,
@@ -65,18 +65,17 @@ export default function AddBeatmapWindow({ setAddBeatmapWindowVisiblity }: param
 
    return (
       <>
-         <div className={`fixed inset-0 z-50 bg-black bg-opacity-50 backdrop-blur-md flex items-center justify-center`}>
-            <div className="!z-[1] backgroundContainer bg-black bg-opacity-[50%] backdrop-blur-md"></div>
-            <div className={`addBeatmapWindow `}>
-               <button className="buttonCloseBeatmapWindowVisiblity bg-red-600" onClick={() => setAddBeatmapWindowVisiblity(false)}>
+         <div className="fixed inset-0 z-50 bg-black bg-opacity-50 backdrop-blur-md flex items-center justify-center">
+            <div className={`${style.addBeatmapWindow}`}>
+               <button className={`${style.buttonCloseBeatmapWindowVisiblity} bg-red-600`} onClick={() => setAddBeatmapWindowVisiblity(false)}>
                   x
                </button>
                <form className="flex flex-col" onSubmit={addBeatmap}>
-                  <label htmlFor="beatmapID">Beatmap ID</label>
+                  <label htmlFor="beatmapID">BeatmapID</label>
                   <input className="text-black" type="number" name="beatmapID" required />
                   <label htmlFor="dataSubmitted">Date Submitted</label>
                   <input className="text-black" type="date" name="dataSubmitted" required />
-                  <button type="submit" className="buttonAddBeatmap mt-2 bg-blue-600">
+                  <button type="submit" className={`${style.buttonAddBeatmap} bg-blue-600`}>
                      Add Beatmap
                   </button>
                </form>

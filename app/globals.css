@@ -40,3 +40,7 @@ body {
 .buttonCircled {
    @apply w-10 h-10 rounded-full flex text-white items-center justify-center;
 }
+
+.fullScreen {
+   @apply w-screen h-screen;
+}

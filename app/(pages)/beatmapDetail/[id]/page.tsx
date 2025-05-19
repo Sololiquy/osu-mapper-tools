@@ -15,7 +15,14 @@ export default function BeatmapDetail() {
    useEffect(() => {
       const getBeatmapset = async () => {
          try {
-            const res = await fetch(`/api/beatmapset/getBeatmapset?id=${id}`);
+            const beatmapID = id;
+            const res = await fetch("/api/beatmapset/getBeatmapset", {
+               method: "POST",
+               headers: {
+                  "Content-Type": "application/json",
+               },
+               body: JSON.stringify({ beatmapID }),
+            });
             const data = await res.json();
 
             if (!res.ok || data.error) {

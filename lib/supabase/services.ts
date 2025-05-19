@@ -3,12 +3,12 @@ import { supabase } from "./init";
 //----------------------------------------------------------------------------
 // GET
 
-export async function getBeatmapset(id: number) {
-   const { data, error } = await supabase.from("dataBeatmap").select("beatmap").eq("id", id).single();
+export async function getBeatmapset(beatmapID: number) {
+   const { data, error } = await supabase.from("fullbeatmapdata").select("*").eq("beatmapid", beatmapID);
    if (error) {
       throw new Error(error.message);
    }
-   return data.beatmap;
+   return data[0].beatmapjson;
 }
 
 export async function getAllBeatmapset(loginID: number) {
@@ -29,7 +29,7 @@ export async function getAllBeatmapset(loginID: number) {
 export async function addBeatmapset(beatmapID: number, data: any, dataSubmitted: string, username: string, userID: number) {
    const { error } = await supabase.rpc("add_beatmapset", {
       o_beatmapid: beatmapID,
-      o_beatmapjson: JSON.stringify(data),
+      o_beatmapjson: data,
       o_title: data.title,
       o_artist: data.artist,
       o_submitdate: dataSubmitted,

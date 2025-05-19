@@ -1,8 +1,9 @@
 "use client";
 
-import "../moddingQueue.css";
 import React, { useContext } from "react";
 import Link from "next/link";
+
+import style from "../moddingQueue.module.css";
 import { contextModdingData } from "../context";
 
 interface parameterType {
@@ -31,12 +32,12 @@ export default function BeatmapCard({ beatmap }: parameterType) {
    const headerBeatmapImg = `https://assets.ppy.sh/beatmaps/${beatmap.beatmapid}/covers/cover.jpg`;
 
    return (
-      <div className="bg-[rgb(50,50,50)]">
-         <div className="w-full h-[100px] relative">
-            <button className={`buttonDeleteBeatmap ${deleteBeatmapWindowVisiblity} bg-red-600`} onClick={() => deleteBeatmap(beatmap.beatmapid)}>
+      <div className="max-w-[400px] h-auto flex flex-col bg-[rgb(50,50,50)]">
+         <div className="relative">
+            <button className={`${style.buttonDeleteBeatmap} ${deleteBeatmapWindowVisiblity} bg-red-600`} onClick={() => deleteBeatmap(beatmap.beatmapid)}>
                DELETE
             </button>
-            <div className="beatmapInfo py-0.5 bg-gradient-to-r from-gray-900 to-transparent">
+            <div className={`${style.beatmapInfo} py-0.5 bg-gradient-to-r from-gray-900 to-transparent`}>
                <div className="flex flex-row gap-1.5 items-center">
                   <img className="size-4" src="/length_icon.svg" alt="" />
                   <span className="text-sm">{time}</span>
@@ -46,9 +47,9 @@ export default function BeatmapCard({ beatmap }: parameterType) {
                   <span className="text-sm">{beatmap.bpm}</span>
                </div>
             </div>
-            <div className={`beatmapStatus ${bgStatusColor}`}>{beatmap.status.toUpperCase()}</div>
+            <div className={`${style.beatmapStatus} ${bgStatusColor}`}>{beatmap.status.toUpperCase()}</div>
             <Link href={`/beatmapDetail/${beatmap.beatmapid}`}>
-               <img className="w-full h-full object-cover" src={headerBeatmapImg} alt="" />
+               <img className="w-[400px] h-[111px] object-cover" src={headerBeatmapImg} alt="" />
             </Link>
          </div>
          <div>
