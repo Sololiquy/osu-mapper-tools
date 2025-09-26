@@ -27,7 +27,6 @@ export default function Toolbar() {
             {pathname !== "/home" &&
                pathSegments.map((segment, index) => {
                   const href = `/${pathSegments.slice(0, index + 1).join("/")}`;
-                  console.log(href);
                   return (
                      <div className="h-10 px-2.5 mr-1.5 relative flex items-center" key={segment}>
                         <Link className="translate-x-3.5" href={href}>

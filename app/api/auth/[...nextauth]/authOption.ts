@@ -15,13 +15,22 @@ export const authOptions = {
    callbacks: {
       async jwt({ token, account, profile }: any) {
          if (account) token.accessToken = account.access_token;
-         if (profile) token.id = profile.id;
+         if (profile) {
+            token.id = profile.id;
+            token.name = profile.username; // store username too
+         }
          return token;
       },
       async session({ session, token }: any) {
          session.accessToken = token.accessToken;
          session.user.id = token.id;
+         session.user.name = token.name; // keep username in session
          return session;
+      },
+   },
+   events: {
+      async signIn({ user }: any) {
+         console.log(`[LOGIN] User signed in → username = ${user?.name}, id = ${user?.id}`);
       },
    },
 };

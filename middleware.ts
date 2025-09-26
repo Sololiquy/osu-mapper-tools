@@ -12,9 +12,6 @@ export async function middleware(request: NextRequest) {
    const pathHost = ["/moddingQueue", "/beatmapDetail", "/home"];
    const pathNonHost = ["/beatmapRequest", "/beatmapDetail", "/home"];
 
-   console.log("tokenId:", logID, typeof logID);
-   console.log("hostId:", hostID, typeof hostID);
-
    if (!token) {
       if (path !== "/login") {
          return NextResponse.redirect(new URL("/login", request.url));

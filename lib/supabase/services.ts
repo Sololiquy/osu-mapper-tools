@@ -23,6 +23,17 @@ export async function getAllBeatmapset(loginID: number) {
    return data;
 }
 
+export async function getServerTime() {
+   const { data, error } = await supabase.rpc("get_server_time");
+
+   if (error) {
+      console.error("Error getting server time:", error);
+      return null;
+   }
+
+   return data;
+}
+
 //----------------------------------------------------------------------------
 // POST
 
@@ -55,6 +66,25 @@ export async function deleteBeatmapset(beatmapID: number, userID: number) {
       o_beatmapid: beatmapID,
       o_userid: userID,
    });
+   if (error) {
+      throw new Error(error.message);
+   }
+}
+
+// UPDATE ----------------------------------------------------------------------------
+
+export async function updateBeatmapset(beatmapID: number, data: any) {
+   const { error } = await supabase.rpc("update_beatmapset", {
+      o_beatmapid: beatmapID,
+      o_beatmapjson: data,
+      o_title: data.title,
+      o_artist: data.artist,
+      o_length: data.beatmaps[0].total_length,
+      o_bpm: data.bpm,
+      o_status: data.status,
+      o_host: data.creator,
+   });
+
    if (error) {
       throw new Error(error.message);
    }

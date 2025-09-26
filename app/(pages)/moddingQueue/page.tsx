@@ -1,24 +1,35 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useSession } from "next-auth/react";
 
 import GroupCard from "./components/groupCard";
 import AddBeatmapWindow from "./components/addBeatmapWindow";
 
 import style from "./moddingQueue.module.css";
+
+import { tokenContext } from "@/app/tokenWrapper";
 import { contextModdingData } from "./context";
 
 export default function ModdingQueue() {
-   const { data: session } = useSession();
+   const { data: session, status } = useSession();
+   const token = useContext(tokenContext);
    const [addBeatmapWindowVisiblity, setAddBeatmapWindowVisiblity] = useState(false);
    const [deleteBeatmapWindowVisiblity, setDeleteBeatmapWindowVisiblity] = useState("hidden");
    const [beatmapData, setBeatmapData] = useState<any[]>([]);
 
    useEffect(() => {
+      if (!token || !session?.user?.id) return;
+      const userID = session?.user?.id;
       const fetchModdingData = async () => {
          try {
-            const res = await fetch("/api/beatmapset/getAllBeatmapset");
+            const res = await fetch("/api/beatmapset/getAllBeatmapset", {
+               method: "POST",
+               headers: {
+                  "Content-Type": "application/json",
+               },
+               body: JSON.stringify({ token, userID }),
+            });
             const data = await res.json();
             if (!res.ok) throw new Error(data.error);
             setBeatmapData(data);
@@ -28,15 +39,17 @@ export default function ModdingQueue() {
       };
 
       fetchModdingData();
-   }, []);
+   }, [token, session?.user?.id]);
 
    const deleteBeatmap = async (beatmapID: number) => {
-      const userID = session?.user?.id;
+      const user = session?.user as { id: string; image: string; name?: string }; //temporary fix for typescript error
+      const username = user?.name;
+      const userID = user?.id;
       try {
          const res = await fetch("/api/beatmapset/deleteBeatmapset", {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ beatmapID, userID }),
+            body: JSON.stringify({ beatmapID, userID, username }),
          });
 
          const data = await res.json();
@@ -62,6 +75,10 @@ export default function ModdingQueue() {
 
    const sortedDates = Object.keys(groupedBeatmaps).sort((a, b) => new Date(b).getTime() - new Date(a).getTime());
 
+   if (status === "loading" || !token || !session?.user?.id) {
+      return <div>Loading...</div>;
+   }
+
    return (
       <>
          <div className={`backgroundContainer`}>
@@ -73,9 +90,7 @@ export default function ModdingQueue() {
                   {sortedDates.map((date) => (
                      <GroupCard key={date} date={date} beatmaps={groupedBeatmaps[date]} />
                   ))}
-
                   {addBeatmapWindowVisiblity && <AddBeatmapWindow setAddBeatmapWindowVisiblity={setAddBeatmapWindowVisiblity} />}
-
                   <div className={`fixed gap-2 right-5 top-5 flex flex-col items-end`}>
                      <button
                         className={`buttonCircled ${deleteBeatmapWindowVisiblity === "flex" ? "bg-gray-400" : "bg-blue-600"}`}
@@ -83,7 +98,10 @@ export default function ModdingQueue() {
                      >
                         +
                      </button>
-                     <button className={`buttonCircled bg-red-600`} onClick={() => setDeleteBeatmapWindowVisiblity(deleteBeatmapWindowVisiblity === "flex" ? "hidden" : "flex")}>
+                     <button
+                        className={`buttonCircled bg-red-600`}
+                        onClick={() => setDeleteBeatmapWindowVisiblity(deleteBeatmapWindowVisiblity === "flex" ? "hidden" : "flex")}
+                     >
                         <img src="/icon_delete.svg" alt="" />
                      </button>
                   </div>
